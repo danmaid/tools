@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div id="a">a
+        <div id="b" class="hoge hage">b
+            <div id="c" class="hoge fuga">c
+                <div id="d">d
+                    <div id="e">e</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function findParent(target, query) {
+            console.debug("target:", target)
+            console.debug("query:", query)
+            if (query == null || target == null) {
+                console.error('invalid parameters.')
+                return
+            }
+            // for ie
+            if (!target.matches && target.msMatchesSelector) {
+                target.matches = target.msMatchesSelector
+            }
+            if (target.matches(query)) {
+                return target
+            }
+            if (target.parentElement) {
+                return findParent(target.parentElement, query)
+            }
+            return false
+        }
+
+        let e = document.getElementById("e")
+        console.log(findParent(e, ".hoge.hage"))
+    </script>
+</body>
+
+</html>
